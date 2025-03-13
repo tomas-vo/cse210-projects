@@ -4,51 +4,26 @@ Tire Volume Calculator
 by Tomás Venegas Osses
 '''
 
-
-'''
-The size of a car tire in the United States is represented with three numbers like this: 205/60R15. 
-The first number is the width of the tire in millimeters. The second number is the aspect ratio. 
-The third number is the diameter in inches of the wheel that the tire fits. 
-The volume of space inside a tire can be approximated with this formula:
-
-
-
-v is the volume in liters,
-π is the constant PI, which is the ratio of the circumference of a circle divided by its diameter (use math.pi),
-w is the width of the tire in millimeters,
-a is the aspect ratio of the tire, and
-d is the diameter of the wheel in inches.
-
-> python tire_volume.py
-Enter the width of the tire in mm (ex 205): 185
-Enter the aspect ratio of the tire (ex 60): 50
-Enter the diameter of the wheel in inches (ex 15): 14
-The approximate volume is 24.09 liters
-> python tire_volume.py
-Enter the width of the tire in mm (ex 205): 205
-Enter the aspect ratio of the tire (ex 60): 60
-Enter the diameter of the wheel in inches (ex 15): 15
-The approximate volume is 39.92 liters
-
-'''
-
+from datetime import datetime
 import math
 
-width = float(input(f'Enter the width of the tire in mm (ex 205): '))
+def calculate_volume(width, aspect_ratio, diameter):
+    diameter_mm = diameter * 25.4
+    volume = (math.pi * width * ((aspect_ratio / 100) * width) * (diameter_mm)) / 1000000
+    return volume
 
-ratio = float(input(f'Enter the aspect ratio of the tire (ex 60): '))
+width = float(input("Enter the width of the tire in mm (ex 205): "))
+aspect_ratio = float(input("Enter the aspect ratio of the tire (ex 60): "))
+diameter = float(input("Enter the diameter of the wheel in inches (ex 15): "))
 
-diameter = float(input(f'Enter the diameter of the wheel in inches (ex 15): '))
+volume = calculate_volume(width, aspect_ratio, diameter)
 
+current_date = datetime.now().strftime("%Y-%m-%d")
 
-# Make the calculations 
+print(f"The approximate volume is {volume:.2f} liters")
 
-volume = math.pi * width**2 * ratio * (width * ratio + 2540 * diameter) /10000000000
-
-
-# print output
-
-volume_aprox = print(f'The approximate volume is "{volume:.2f}" liters')
+with open("volumes.txt", "at") as file:
+    file.write(f"{current_date}, {width}, {aspect_ratio}, {diameter}, {volume:.2f}\n")
 
 
 
