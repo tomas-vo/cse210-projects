@@ -10,7 +10,7 @@ class Program
 
         int addnumber;
 
-        Console.WriteLine("Enter a list of numbers, type 0 when finished.");
+        Console.WriteLine("Enter a list of numbers (type 0 to finish.)");
 
         
         do
